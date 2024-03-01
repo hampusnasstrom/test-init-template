@@ -26,8 +26,11 @@ jobs:
       - uses: actions/checkout@v3
 
       # Replaces the template repository name in the README with the new one
-      - name: Update repository name
-        run: sed -i "s|hampusnasstrom/test-init-template|${{ github.repository }}|g" README.md
+      - name: Update README
+        run: |
+          sed -i "s|GITHUB_REPOSITORY_OWNER|${{ github.repository_owner }}|g" template_README.md
+          sed -i "s|GITHUB_REPOSITORY|${{ github.repository }}|g" template_README.md
+          mv template_README.md README.md
 
       # Deletes this workflow file to prevent it from running on branch creation
       - name: Delete initialization workflow
